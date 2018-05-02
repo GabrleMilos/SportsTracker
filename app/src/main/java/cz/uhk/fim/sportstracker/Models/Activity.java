@@ -6,19 +6,16 @@ import java.util.List;
 public class Activity {
     private int id;
     private List<Position> positionList;
-    private double distance;
     private Date date;
 
-    public Activity(int id, List<Position> positionList, double distance, Date date) {
+    public Activity(int id, List<Position> positionList, Date date) {
         this.id = id;
         this.positionList = positionList;
-        this.distance = distance;
         this.date = date;
     }
 
-    public Activity(List<Position> positionList, double distance, Date date) {
+    public Activity(List<Position> positionList, Date date) {
         this.positionList = positionList;
-        this.distance = distance;
         this.date = date;
     }
 
@@ -36,14 +33,6 @@ public class Activity {
 
     public void setPositionList(List<Position> positionList) {
         this.positionList = positionList;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
     }
 
     public Date getDate() {
