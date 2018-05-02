@@ -1,5 +1,6 @@
 package cz.uhk.fim.sportstracker.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -65,8 +66,22 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public boolean insertActivity(Activity activity) {
-        return false;
+    public boolean insertActivity(Activity activity, int userId) {
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues activityValues = new ContentValues();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdf.format(activity.getDate());
+        activityValues.put(ActivityTable.COLUMN_DATE, date);
+        activityValues.put(ActivityTable.COLUMN_USER_ID, userId);
+
+        long id = database.insert(ActivityTable.TABLE_NAME,null,activityValues);
+
+        for (Position p: activity.getPositionList()) {
+            insertPosition(p, id);
+        }
+
+        return id > 0;
     }
 
     @Override
@@ -115,8 +130,21 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public boolean insertPosition(Position position) {
-        return false;
+    public boolean insertPosition(Position position, long activityId) {
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues positionValues = new ContentValues();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdf.format(position.getDate());
+
+        positionValues.put(PositionTable.COLUMN_ACTIVITY_ID, activityId);
+        positionValues.put(PositionTable.COLUMN_DATE,date);
+        positionValues.put(PositionTable.COLUMN_LAT, position.getLat());
+        positionValues.put(PositionTable.COLUMN_LNG, position.getLng());
+
+        long id = database.insert(PositionTable.TABLE_NAME,null,positionValues);
+
+        return id > 0;
     }
 
     @Override

@@ -7,7 +7,7 @@ import cz.uhk.fim.sportstracker.Models.Position;
 
 public interface ActivityHelperInterface {
     Activity getActivity (int activityId);
-    boolean insertActivity (Activity activity);
+    boolean insertActivity (Activity activity, int userId);
     boolean deleteActivity (Activity activity);
     boolean deleteActivity (int activityId);
     List<Position> getActivityPositions (int activityId);
