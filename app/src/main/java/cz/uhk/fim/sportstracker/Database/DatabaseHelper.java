@@ -12,12 +12,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        //todo: create tables after creating db conn
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(UserTable.SQL_QUERY_CREATE);
+        sqLiteDatabase.execSQL(ActivityTable.SQL_QUERY_CREATE);
+        sqLiteDatabase.execSQL(PositionTable.SQL_QUERY_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+
 }
