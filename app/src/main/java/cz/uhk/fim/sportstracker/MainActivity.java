@@ -23,19 +23,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         databaseHelper = new DatabaseHelper(this);
 
-        insertTestData();
+//        insertTestData();
         readTestData();
     }
 
     private void readTestData() {
 //        User u = databaseHelper.getUser("gabrlmi1");
+
 //        Activity a = databaseHelper.getActivity(1);
+
 //        List<Position> p = databaseHelper.getActivityPositions(1);
-        List<User> a = databaseHelper.getAllUsers();
-        for (User u: a) {
-            Toast.makeText(this, u.getLogin(),Toast.LENGTH_LONG).show();
+
+//        List<User> a = databaseHelper.getAllUsers();
+//        for (User u: a) {
+//            Toast.makeText(this, u.getLogin(),Toast.LENGTH_LONG).show();
+//        }
+
+        List<Activity> a = databaseHelper.getUserActivities(1);
+        for (Activity u: a) {
+            Toast.makeText(this, u.getDate().toString(),Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(this, "this sucks",Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "this sucks",Toast.LENGTH_LONG).show();
     }
 
     private void insertTestData(){

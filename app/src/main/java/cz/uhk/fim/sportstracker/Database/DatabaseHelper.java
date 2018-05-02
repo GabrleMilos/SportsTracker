@@ -68,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     public Activity getActivity(int activityId) {
         SQLiteDatabase database = getReadableDatabase();
         String [] projection = {ActivityTable._ID ,ActivityTable.COLUMN_USER_ID,ActivityTable.COLUMN_DATE};
-        String selection = ActivityTable._ID + "= ?";
+        String selection = ActivityTable._ID + " = ?";
         String [] selectionArgs = {String.valueOf(activityId)};
 
         Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
@@ -124,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     public List<Position> getActivityPositions(int activityId) {
         SQLiteDatabase database = getReadableDatabase();
         String [] projection = null;
-        String selection = PositionTable.COLUMN_ACTIVITY_ID + "= ?";
+        String selection = PositionTable.COLUMN_ACTIVITY_ID + " = ?";
         String [] selectionArgs = {String.valueOf(activityId)};
 
         Cursor cursor = database.query(PositionTable.TABLE_NAME, projection, selection, selectionArgs, null, null, PositionTable.COLUMN_DATE);
@@ -177,7 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     @Override
     public User getUser(String login) {
         SQLiteDatabase database = getReadableDatabase();
-        String selection = UserTable.COLUMN_LOGIN + "= ?";
+        String selection = UserTable.COLUMN_LOGIN + " = ?";
         String [] selectionArgs = {login};
 
         Cursor cursor = database.query(UserTable.TABLE_NAME, null, selection, selectionArgs, null, null, null);
@@ -228,8 +228,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     @Override
     public List<Activity> getUserActivities(int userId) {
         SQLiteDatabase database = getReadableDatabase();
-        String [] projection = {ActivityTable.COLUMN_DATE, ActivityTable._ID};
-        String selection = ActivityTable.COLUMN_USER_ID + "= ?";
+        String [] projection = null;
+        String selection = ActivityTable.COLUMN_USER_ID + " = ?";
         String [] selectionArgs = {String.valueOf(userId)};
 
         Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
