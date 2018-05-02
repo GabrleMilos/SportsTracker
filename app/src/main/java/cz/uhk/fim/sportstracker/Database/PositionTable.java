@@ -8,7 +8,7 @@ public class PositionTable implements BaseColumns {
     public  static final String COLUMN_LAT = "lat";
     public  static final String COLUMN_LNG = "lng";
     public  static final String COLUMN_ACTIVITY_ID = "activityid";
-    public  static final String ACTIVITY_REFERENCE = "activity";
+    public  static final String ACTIVITY_REFERENCE = "activities";
 
 
 
@@ -18,8 +18,9 @@ public class PositionTable implements BaseColumns {
                     + _ID + "INTEGER PRIMARY KEY, "
                     + COLUMN_DATE + " DATE, "
                     + COLUMN_LAT + " REAL, "
-                    + COLUMN_LNG + " REAL"
-                    + "FOREIGN KEY (+"+ COLUMN_ACTIVITY_ID +") REFERENCES " + ACTIVITY_REFERENCE + "(id)"
+                    + COLUMN_LNG + " REAL, "
+                    + COLUMN_ACTIVITY_ID + " INTEGER, "
+                    + "FOREIGN KEY ("+ COLUMN_ACTIVITY_ID +") REFERENCES " + ACTIVITY_REFERENCE + "(id)"
                     +")";
 
     public static final String SQL_QUERY_DELETE =

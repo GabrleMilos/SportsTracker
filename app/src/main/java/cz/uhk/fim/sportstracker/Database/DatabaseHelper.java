@@ -38,6 +38,32 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
 
+    public List<User> getAllUsers(){
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.query(UserTable.TABLE_NAME, null, null, null, null, null, null);
+        List<User> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex((UserTable._ID)));
+            String login2 = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_LOGIN)));
+            String password = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_PASSWORD)));
+            double weight = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_WEIGHT)));
+            double height = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_HEIGHT)));
+            String gender = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_GENDER)));
+
+            String dateString = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_BORN)));
+            Date date = null;
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            try {
+                date = format.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            list.add(new User(id,login2,password,weight,height,date,gender));
+        }
+        return  list;
+    }
+
     @Override
     public Activity getActivity(int activityId) {
         SQLiteDatabase database = getReadableDatabase();
@@ -97,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     @Override
     public List<Position> getActivityPositions(int activityId) {
         SQLiteDatabase database = getReadableDatabase();
-        String [] projection = {PositionTable._ID ,PositionTable.COLUMN_LAT, PositionTable.COLUMN_LNG, PositionTable.COLUMN_DATE, PositionTable.COLUMN_ACTIVITY_ID};
+        String [] projection = null;
         String selection = PositionTable.COLUMN_ACTIVITY_ID + "= ?";
         String [] selectionArgs = {String.valueOf(activityId)};
 
@@ -124,10 +150,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         return positionList;
     }
 
-    @Override
-    public Position getPosition(int positionId) {
-        return null;
-    }
 
     @Override
     public boolean insertPosition(Position position, long activityId) {
@@ -148,23 +170,59 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public boolean deletePosition(int positionId) {
-        return false;
-    }
-
-    @Override
-    public boolean deletePosition(Position position) {
-        return false;
-    }
-
-    @Override
     public User getUser(int userId) {
         return null;
     }
 
     @Override
-    public boolean addUser(User user) {
-        return false;
+    public User getUser(String login) {
+        SQLiteDatabase database = getReadableDatabase();
+        String selection = UserTable.COLUMN_LOGIN + "= ?";
+        String [] selectionArgs = {login};
+
+        Cursor cursor = database.query(UserTable.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        if (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex((UserTable._ID)));
+            String login2 = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_LOGIN)));
+            String password = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_PASSWORD)));
+            double weight = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_WEIGHT)));
+            double height = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_HEIGHT)));
+            String gender = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_GENDER)));
+
+            String dateString = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_BORN)));
+            Date date = null;
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            try {
+                date = format.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return new User(id,login,password,weight,height,date,gender);
+        }
+
+        return  null;
+    }
+
+    @Override
+    public boolean insertUser(User user) {
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues userValues = new ContentValues();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdf.format(user.getBorn());
+
+        userValues.put(UserTable.COLUMN_BORN, date);
+        userValues.put(UserTable.COLUMN_GENDER, user.getGender());
+        userValues.put(UserTable.COLUMN_HEIGHT, user.getHeight());
+        userValues.put(UserTable.COLUMN_LOGIN, user.getLogin());
+        userValues.put(UserTable.COLUMN_PASSWORD, user.getPassword());
+        userValues.put(UserTable.COLUMN_WEIGHT, user.getWeight());
+
+
+        long id = database.insert(PositionTable.TABLE_NAME,null,userValues);
+
+        return id > 0;
     }
 
     @Override

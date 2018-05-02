@@ -7,6 +7,7 @@ import cz.uhk.fim.sportstracker.Models.User;
 
 public interface UserHelperInterface {
     User getUser(int userId);
-    boolean addUser (User user);
+    User getUser(String login);
+    boolean insertUser(User user);
     List<Activity> getUserActivities (int userId);
 }

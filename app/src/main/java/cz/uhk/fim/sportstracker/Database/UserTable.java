@@ -3,7 +3,7 @@ package cz.uhk.fim.sportstracker.Database;
 import android.provider.BaseColumns;
 
 public class UserTable implements BaseColumns {
-    public  static final String TABLE_NAME = "user";
+    public  static final String TABLE_NAME = "users";
     public  static final String COLUMN_LOGIN= "login";
     public  static final String COLUMN_PASSWORD = "password";
     public  static final String COLUMN_WEIGHT = "weight";
