@@ -15,6 +15,13 @@ public class User {
         this.height = height;
     }
 
+    public User(String login, String password, double weight, double height) {
+        this.login = login;
+        this.password = password;
+        this.weight = weight;
+        this.height = height;
+    }
+
     public int getId() {
         return id;
     }
