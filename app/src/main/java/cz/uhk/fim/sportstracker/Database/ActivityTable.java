@@ -19,5 +19,4 @@ public class ActivityTable implements BaseColumns {
 
     public static final String SQL_QUERY_DELETE =
             "DELETE TABLE IF EXISTS " + TABLE_NAME;
-
 }

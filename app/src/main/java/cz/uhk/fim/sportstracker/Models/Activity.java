@@ -8,6 +8,8 @@ public class Activity {
     private List<Position> positionList;
     private Date date;
 
+    public Activity() {}
+
     public Activity(int id, List<Position> positionList, Date date) {
         this.id = id;
         this.positionList = positionList;

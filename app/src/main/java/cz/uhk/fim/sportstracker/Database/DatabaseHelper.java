@@ -1,10 +1,17 @@
 package cz.uhk.fim.sportstracker.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import cz.uhk.fim.sportstracker.Models.Activity;
 import cz.uhk.fim.sportstracker.Models.Position;
@@ -32,7 +39,29 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
 
     @Override
     public Activity getActivity(int activityId) {
-        return null;
+        SQLiteDatabase database = getReadableDatabase();
+        String [] projection = {ActivityTable._ID ,ActivityTable.COLUMN_USER_ID,ActivityTable.COLUMN_DATE};
+        String selection = ActivityTable._ID + "= ?";
+        String [] selectionArgs = {String.valueOf(activityId)};
+
+        Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
+        Activity a = new Activity();
+        if (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex((ActivityTable._ID)));
+            String dateString = cursor.getString(cursor.getColumnIndex((ActivityTable.COLUMN_DATE)));
+            Date date = null;
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            try {
+                date = format.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<Position> positionList = getActivityPositions(activityId);
+            a = new Activity(id, positionList, date);
+        }
+
+        return a;
     }
 
     @Override
@@ -51,8 +80,33 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public Collection<Position> getActivityPositions(int activityId) {
-        return null;
+    public List<Position> getActivityPositions(int activityId) {
+        SQLiteDatabase database = getReadableDatabase();
+        String [] projection = {PositionTable._ID ,PositionTable.COLUMN_LAT, PositionTable.COLUMN_LNG, PositionTable.COLUMN_DATE, PositionTable.COLUMN_ACTIVITY_ID};
+        String selection = PositionTable.COLUMN_ACTIVITY_ID + "= ?";
+        String [] selectionArgs = {String.valueOf(activityId)};
+
+        Cursor cursor = database.query(PositionTable.TABLE_NAME, projection, selection, selectionArgs, null, null, PositionTable.COLUMN_DATE);
+        List<Position> positionList = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex((PositionTable._ID)));
+            double lat = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_LAT)));
+            double lng = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_LNG)));
+            String dateString = cursor.getString(cursor.getColumnIndex((PositionTable.COLUMN_DATE)));
+            Date date = null;
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            try {
+                date = format.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            positionList.add(new Position(id,lat,lng,date));
+        }
+
+        return positionList;
     }
 
     @Override
@@ -86,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public Collection<Activity> getUserActivities(int userId) {
+    public List<Activity> getUserActivities(int userId) {
         return null;
     }
 }
