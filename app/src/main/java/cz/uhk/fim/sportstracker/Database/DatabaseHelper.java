@@ -169,6 +169,34 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
 
     @Override
     public List<Activity> getUserActivities(int userId) {
-        return null;
+        SQLiteDatabase database = getReadableDatabase();
+        String [] projection = {ActivityTable.COLUMN_DATE, ActivityTable._ID};
+        String selection = ActivityTable.COLUMN_USER_ID + "= ?";
+        String [] selectionArgs = {String.valueOf(userId)};
+
+        Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
+        List<Activity> activityList = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex((ActivityTable._ID)));
+
+            String dateString = cursor.getString(cursor.getColumnIndex((ActivityTable.COLUMN_DATE)));
+            Date date = null;
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            try {
+                date = format.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            List<Position> positionList = getActivityPositions(id);
+
+
+            activityList.add(new Activity(id,positionList, date));
+        }
+
+
+        return activityList;
     }
 }
