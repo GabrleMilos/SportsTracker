@@ -22,14 +22,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         databaseHelper = new DatabaseHelper(this);
-
-//        insertTestData();
+        insertTestData();
         readTestData();
     }
 
     private void readTestData() {
 //        User u = databaseHelper.getUser("gabrlmi1");
-
+//        Toast.makeText(this, u.getGender(),Toast.LENGTH_LONG).show();
 //        Activity a = databaseHelper.getActivity(1);
 
 //        List<Position> p = databaseHelper.getActivityPositions(1);
@@ -39,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
 //            Toast.makeText(this, u.getLogin(),Toast.LENGTH_LONG).show();
 //        }
 
-        List<Activity> a = databaseHelper.getUserActivities(1);
-        for (Activity u: a) {
-            Toast.makeText(this, u.getDate().toString(),Toast.LENGTH_LONG).show();
-        }
-//        Toast.makeText(this, "this sucks",Toast.LENGTH_LONG).show();
+//        List<Activity> a = databaseHelper.getUserActivities(1);
+//        for (Activity u: a) {
+//            Toast.makeText(this, u.getDate().toString(),Toast.LENGTH_LONG).show();
+//        }
     }
 
     private void insertTestData(){

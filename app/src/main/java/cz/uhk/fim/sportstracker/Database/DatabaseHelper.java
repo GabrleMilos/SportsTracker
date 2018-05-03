@@ -232,7 +232,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         String selection = ActivityTable.COLUMN_USER_ID + " = ?";
         String [] selectionArgs = {String.valueOf(userId)};
 
-        Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
+//        Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + ActivityTable.TABLE_NAME,null);
         List<Activity> activityList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -248,10 +249,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
                 e.printStackTrace();
             }
 
-            List<Position> positionList = getActivityPositions(id);
+            List<Position> positionList = getActivityPositions(1);
 
 
-            activityList.add(new Activity(id,positionList, date));
+            activityList.add(new Activity(1,positionList, date));
         }
 
 
