@@ -33,8 +33,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        sqLiteDatabase.execSQL(UserTable.SQL_QUERY_DELETE);
+        sqLiteDatabase.execSQL(ActivityTable.SQL_QUERY_DELETE);
+        sqLiteDatabase.execSQL(PositionTable.SQL_QUERY_DELETE);
 
+        sqLiteDatabase.execSQL(UserTable.SQL_QUERY_CREATE);
+        sqLiteDatabase.execSQL(ActivityTable.SQL_QUERY_CREATE);
+        sqLiteDatabase.execSQL(PositionTable.SQL_QUERY_CREATE);
     }
 
 
@@ -43,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         Cursor cursor = database.query(UserTable.TABLE_NAME, null, null, null, null, null, null);
         List<User> list = new ArrayList<>();
         while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex((UserTable._ID)));
+            int id = cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID));
             String login2 = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_LOGIN)));
             String password = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_PASSWORD)));
             double weight = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_WEIGHT)));
@@ -131,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         List<Position> positionList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex((PositionTable._ID)));
+            int id = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_ID)));
             double lat = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_LAT)));
             double lng = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_LNG)));
             String dateString = cursor.getString(cursor.getColumnIndex((PositionTable.COLUMN_DATE)));
@@ -177,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     @Override
     public User getUser(String login) {
         SQLiteDatabase database = getReadableDatabase();
-        String selection = UserTable.COLUMN_LOGIN + " = ?";
+        String selection = UserTable.COLUMN_LOGIN + " LIKE ?";
         String [] selectionArgs = {login};
 
         Cursor cursor = database.query(UserTable.TABLE_NAME, null, selection, selectionArgs, null, null, null);
@@ -198,7 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            return new User(id,login,password,weight,height,date,gender);
+            return new User(1,login,password,weight,height,date,gender);
         }
 
         return  null;
@@ -220,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         userValues.put(UserTable.COLUMN_WEIGHT, user.getWeight());
 
 
-        long id = database.insert(PositionTable.TABLE_NAME,null,userValues);
+        long id = database.insert(UserTable.TABLE_NAME,null,userValues);
 
         return id > 0;
     }
@@ -237,7 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         List<Activity> activityList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex((ActivityTable._ID)));
+            int id = cursor.getInt(cursor.getColumnIndex((ActivityTable.COLUMN_ID)));
 
             String dateString = cursor.getString(cursor.getColumnIndex((ActivityTable.COLUMN_DATE)));
             Date date = null;

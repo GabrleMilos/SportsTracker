@@ -4,6 +4,7 @@ import android.provider.BaseColumns;
 
 public class UserTable implements BaseColumns {
     public  static final String TABLE_NAME = "users";
+    public  static final String COLUMN_ID = "id";
     public  static final String COLUMN_LOGIN= "login";
     public  static final String COLUMN_PASSWORD = "password";
     public  static final String COLUMN_WEIGHT = "weight";
@@ -14,7 +15,7 @@ public class UserTable implements BaseColumns {
     public static final String SQL_QUERY_CREATE =
             "CREATE TABLE " + TABLE_NAME
                     +"("
-                    + _ID + "INTEGER PRIMARY KEY, "
+                    + COLUMN_ID + "INTEGER PRIMARY KEY, "
                     + COLUMN_LOGIN + " TEXT, "
                     + COLUMN_PASSWORD + " TEXT, "
                     + COLUMN_WEIGHT + " REAL, "

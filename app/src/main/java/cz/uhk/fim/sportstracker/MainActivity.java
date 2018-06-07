@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         databaseHelper = new DatabaseHelper(this);
-        insertTestData();
+//        insertTestData();
         readTestData();
     }
 
     private void readTestData() {
-//        User u = databaseHelper.getUser("gabrlmi1");
+        User u = databaseHelper.getUser("gabrlmi1");
 //        Toast.makeText(this, u.getGender(),Toast.LENGTH_LONG).show();
 //        Activity a = databaseHelper.getActivity(1);
 
@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 //            Toast.makeText(this, u.getLogin(),Toast.LENGTH_LONG).show();
 //        }
 
-//        List<Activity> a = databaseHelper.getUserActivities(1);
-//        for (Activity u: a) {
-//            Toast.makeText(this, u.getDate().toString(),Toast.LENGTH_LONG).show();
-//        }
+        List<Activity> a = databaseHelper.getUserActivities(1);
+        for (Activity ac: a) {
+            Toast.makeText(this, ac.getDate().toString(),Toast.LENGTH_LONG).show();
+        }
     }
 
     private void insertTestData(){
@@ -68,9 +68,16 @@ public class MainActivity extends AppCompatActivity {
         Activity a2 = new Activity(positionList2, new Date(2016, 8, 12, 19,4));
 
 
-        databaseHelper.insertUser(u);
-        databaseHelper.insertActivity(a1,1);
-        databaseHelper.insertActivity(a2,1);
+        if(databaseHelper.insertUser(u)){
+            Log.i("User", "inserted");
+        };
+        if(databaseHelper.insertActivity(a1,1)) {
+            Log.i("Activity1", "inserted");
+        };
+
+        if(databaseHelper.insertActivity(a2,1)){
+            Log.i("Activity2", "inserted");
+        };
 
 
     }
