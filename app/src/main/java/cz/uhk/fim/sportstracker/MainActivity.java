@@ -2,6 +2,8 @@ package cz.uhk.fim.sportstracker;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,21 +11,37 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.uhk.fim.sportstracker.Database.DatabaseHelper;
 import cz.uhk.fim.sportstracker.Models.Activity;
 import cz.uhk.fim.sportstracker.Models.Position;
 import cz.uhk.fim.sportstracker.Models.User;
+import cz.uhk.fim.sportstracker.TestData.TestData;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
+
+    @BindView(R.id.recyclerMain)
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+
+    ActivityAdapter activityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         databaseHelper = new DatabaseHelper(this);
-//        insertTestData();
-        readTestData();
+        layoutManager= new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //        insertTestData();
+        //        readTestData();
+        activityAdapter = new ActivityAdapter(TestData.GetUserActivities());
+        recyclerView.setAdapter(activityAdapter);
+
     }
 
     private void readTestData() {
