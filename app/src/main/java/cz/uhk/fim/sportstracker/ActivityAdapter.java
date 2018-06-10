@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cz.uhk.fim.sportstracker.Models.Activity;
@@ -51,7 +52,8 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
         public void setActivity(final Activity activity){
             txtDate.setText(activity.getDateString());
-            txtDistance.setText(" " + Double.toString(activity.getDistance()));
+            DecimalFormat df = new DecimalFormat("####0.00");
+            txtDistance.setText(" " + df.format(activity.getDistance()) + " km");
         }
     }
 }

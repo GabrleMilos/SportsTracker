@@ -27,11 +27,18 @@ public class TestData {
         positionList2.add(p2);
         positionList2.add(p3);
 
+        List<Position> positionList3 = new ArrayList<>();
+        positionList3.add(p3);
+        positionList3.add(p4);
+        positionList3.add(p5);
+
         Activity a1 = new Activity(positionList1, new Date(2016, 8, 12, 19,4));
         Activity a2 = new Activity(positionList2, new Date(2016, 8, 12, 19,4));
+        Activity a3 = new Activity(positionList3, new Date(2017, 9, 2, 10,4));
         List<Activity> list = new ArrayList<Activity>();
         list.add(a1);
         list.add(a2);
+        list.add(a3);
         return list;
     }
 
