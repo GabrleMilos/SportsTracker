@@ -12,4 +12,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+<!--TODO: edit item view based on pages from https://wireframepro.mockflow.com/editor.jsp?editor=off&publicid=Maf3421dd7c220f381d152c3a6ab0f2a61528619684949&projectid=D263a2b33f2296f4b8a9ad5ec35d73baf&perm=Owner#/page/D84e5f6d44d1ea7b1b7c6e0f3bd9944de-->
 </LinearLayout>
