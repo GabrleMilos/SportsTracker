@@ -14,4 +14,8 @@
         completions."
     </string>
     <string name="MainAtcitivity_btnDelete">Delete</string>
+    <string name="btnStartActivity">Start</string>
+    <string name="btnStopActivity">Stop</string>
+    <string name="txtTime">Time</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -24,6 +26,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_activity,null);
         ActivityViewHolder viewHolder = new ActivityViewHolder(itemView);
+
         return viewHolder;
     }
 

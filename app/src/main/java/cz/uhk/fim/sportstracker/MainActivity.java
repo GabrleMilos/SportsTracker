@@ -1,10 +1,13 @@
 package cz.uhk.fim.sportstracker;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerMain)
     RecyclerView recyclerView;
+    @BindView(R.id.btnNewActivity)
+    FloatingActionButton btnNewActivity;
+
     RecyclerView.LayoutManager layoutManager;
 
     ActivityAdapter activityAdapter;
@@ -42,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
         activityAdapter = new ActivityAdapter(TestData.GetUserActivities());
         recyclerView.setAdapter(activityAdapter);
 
+        btnNewActivity.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this ,NewActivity.class);
+                        startActivityForResult(intent, 10);
+                    }
+                });
     }
 
     private void readTestData() {
