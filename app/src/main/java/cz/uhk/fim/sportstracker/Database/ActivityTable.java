@@ -12,7 +12,7 @@ public class ActivityTable implements BaseColumns {
     public static final String SQL_QUERY_CREATE =
             "CREATE TABLE " + TABLE_NAME
                     +"("
-                    + COLUMN_ID + "INTEGER PRIMARY KEY, "
+                    + COLUMN_ID + " INTEGER PRIMARY KEY, "
                     + COLUMN_DATE + " DATE, "
                     + COLUMN_USER_ID + " INTEGER, "
                     + "FOREIGN KEY ("+ COLUMN_USER_ID +") REFERENCES " + USER_REFERENCE + "(id)"
