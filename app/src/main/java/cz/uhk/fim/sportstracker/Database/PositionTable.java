@@ -16,7 +16,7 @@ public class PositionTable implements BaseColumns {
     public static final String SQL_QUERY_CREATE =
             "CREATE TABLE " + TABLE_NAME
                     +"("
-                    + COLUMN_ID + "INTEGER PRIMARY KEY, "
+                    + COLUMN_ID + " INTEGER PRIMARY KEY, "
                     + COLUMN_DATE + " DATE, "
                     + COLUMN_LAT + " REAL, "
                     + COLUMN_LNG + " REAL, "
