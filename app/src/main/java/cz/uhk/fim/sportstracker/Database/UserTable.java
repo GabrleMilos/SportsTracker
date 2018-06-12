@@ -15,7 +15,7 @@ public class UserTable implements BaseColumns {
     public static final String SQL_QUERY_CREATE =
             "CREATE TABLE " + TABLE_NAME
                     +"("
-                    + COLUMN_ID + "INTEGER PRIMARY KEY, "
+                    + COLUMN_ID + " INTEGER PRIMARY KEY, "
                     + COLUMN_LOGIN + " TEXT, "
                     + COLUMN_PASSWORD + " TEXT, "
                     + COLUMN_WEIGHT + " REAL, "
