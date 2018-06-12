@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         layoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        //        insertTestData();
-        //        readTestData();
+//                insertTestData();
+//                readTestData();
         activityAdapter = new ActivityAdapter(TestData.GetUserActivities());
         recyclerView.setAdapter(activityAdapter);
 
@@ -59,19 +59,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readTestData() {
-        User u = databaseHelper.getUser("gabrlmi1");
+//        User u = databaseHelper.getUser("gabrlmi1");
 //        Toast.makeText(this, u.getGender(),Toast.LENGTH_LONG).show();
 //        Activity a = databaseHelper.getActivity(1);
-
+//
 //        List<Position> p = databaseHelper.getActivityPositions(1);
-
-//        List<User> a = databaseHelper.getAllUsers();
-//        for (User u: a) {
-//            Toast.makeText(this, u.getLogin(),Toast.LENGTH_LONG).show();
+//
+//        List<User> users = databaseHelper.getAllUsers();
+//        for (User u1: users) {
+//            Toast.makeText(this, u1.getLogin(),Toast.LENGTH_LONG).show();
 //        }
-
-        List<Activity> a = databaseHelper.getUserActivities(1);
-        for (Activity ac: a) {
+//
+        List<Activity> a1 = databaseHelper.getUserActivities(1);
+        for (Activity ac: a1) {
             Toast.makeText(this, ac.getDate().toString(),Toast.LENGTH_LONG).show();
         }
     }

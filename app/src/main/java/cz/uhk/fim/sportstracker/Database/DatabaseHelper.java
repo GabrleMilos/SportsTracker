@@ -183,12 +183,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     @Override
     public User getUser(String login) {
         SQLiteDatabase database = getReadableDatabase();
-        String selection = UserTable.COLUMN_LOGIN + " LIKE ?";
-        String [] selectionArgs = {login};
+        String selection = UserTable.COLUMN_LOGIN + " = ?";
+        String [] selectionArgs = new String[]{login};
 
         Cursor cursor = database.query(UserTable.TABLE_NAME, null, selection, selectionArgs, null, null, null);
         if (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex((UserTable._ID)));
+            int id = cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID));
             String login2 = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_LOGIN)));
             String password = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_PASSWORD)));
             double weight = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_WEIGHT)));
@@ -204,7 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            return new User(1,login,password,weight,height,date,gender);
+            return new User(id,login,password,weight,height,date,gender);
         }
 
         return  null;
@@ -238,8 +238,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         String selection = ActivityTable.COLUMN_USER_ID + " = ?";
         String [] selectionArgs = {String.valueOf(userId)};
 
-//        Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
-        Cursor cursor = database.rawQuery("SELECT * FROM " + ActivityTable.TABLE_NAME,null);
+        Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
+//        Cursor cursor = database.rawQuery("SELECT * FROM " + ActivityTable.TABLE_NAME,null);
         List<Activity> activityList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -255,10 +255,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
                 e.printStackTrace();
             }
 
-            List<Position> positionList = getActivityPositions(1);
+            List<Position> positionList = getActivityPositions(id);
 
 
-            activityList.add(new Activity(1,positionList, date));
+            activityList.add(new Activity(id,positionList, date));
         }
 
 
