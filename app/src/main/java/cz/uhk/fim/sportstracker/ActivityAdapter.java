@@ -1,13 +1,16 @@
 package cz.uhk.fim.sportstracker;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -34,6 +37,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public void onBindViewHolder(@NonNull ActivityViewHolder holder, int position) {
         Activity activity = activities.get(position);
         holder.setActivity(activity);
+
     }
 
     @Override
@@ -44,12 +48,32 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public class ActivityViewHolder extends RecyclerView.ViewHolder{
         private TextView txtDate;
         private TextView txtDistance;
+        private Button btnDelete;
+        private Button btnDetail;
+        private int id;
 
 
-        public ActivityViewHolder(View itemView) {
+        public ActivityViewHolder(final View itemView) {
             super(itemView);
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtDistance =  (TextView) itemView.findViewById(R.id.txtDistance);
+            btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
+            btnDetail = (Button) itemView.findViewById(R.id.btnDetail);
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO: add delete function !!!
+                }
+            });
+
+            btnDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext() ,DetailActivity.class);
+                    intent.putExtra("id", id);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
 
 
@@ -57,6 +81,9 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
             txtDate.setText(activity.getDateString());
             DecimalFormat df = new DecimalFormat("####0.00");
             txtDistance.setText(" " + df.format(activity.getDistance()) + " km");
+            id = activity.getId();
+
         }
+
     }
 }

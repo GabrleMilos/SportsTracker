@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-feature android:name="android.hardware.location.gps" />
 
     <!--
@@ -49,6 +50,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cz.uhk.fim.sportstracker.MainActivity" />
         </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"></activity>
     </application>
 
 </manifest>

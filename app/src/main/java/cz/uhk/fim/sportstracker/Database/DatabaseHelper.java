@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cz.uhk.fim.sportstracker.Models.Activity;
 import cz.uhk.fim.sportstracker.Models.Position;
@@ -73,8 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     @Override
     public Activity getActivity(int activityId) {
         SQLiteDatabase database = getReadableDatabase();
-        String [] projection = {ActivityTable._ID ,ActivityTable.COLUMN_USER_ID,ActivityTable.COLUMN_DATE};
-        String selection = ActivityTable._ID + " = ?";
+        String [] projection = null;
+        String selection = ActivityTable.COLUMN_ID + " = ?";
         String [] selectionArgs = {String.valueOf(activityId)};
 
         Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
@@ -131,15 +132,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         SQLiteDatabase database = getReadableDatabase();
         String [] projection = null;
         String selection = PositionTable.COLUMN_ACTIVITY_ID + " = ?";
-        String [] selectionArgs = {String.valueOf(activityId)};
+        String [] selectionArgs = new String[]{String.valueOf(activityId)};
 
         Cursor cursor = database.query(PositionTable.TABLE_NAME, projection, selection, selectionArgs, null, null, PositionTable.COLUMN_DATE);
         List<Position> positionList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_ID)));
-            double lat = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_LAT)));
-            double lng = cursor.getInt(cursor.getColumnIndex((PositionTable.COLUMN_LNG)));
+            double lat = cursor.getDouble(cursor.getColumnIndex((PositionTable.COLUMN_LAT)));
+            double lng = cursor.getDouble(cursor.getColumnIndex((PositionTable.COLUMN_LNG)));
             String dateString = cursor.getString(cursor.getColumnIndex((PositionTable.COLUMN_DATE)));
             Date date = null;
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -189,7 +190,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         Cursor cursor = database.query(UserTable.TABLE_NAME, null, selection, selectionArgs, null, null, null);
         if (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID));
-            String login2 = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_LOGIN)));
             String password = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_PASSWORD)));
             double weight = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_WEIGHT)));
             double height = cursor.getDouble(cursor.getColumnIndex((UserTable.COLUMN_HEIGHT)));

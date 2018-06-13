@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/linLayoutItem"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,13 +18,19 @@
         />
 
     <Button
+        android:id="@+id/btnDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/MainAtcitivity_btnDetail"
+        android:layout_gravity="right"
+        />
+    <Button
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/MainAtcitivity_btnDelete"
         android:textColor="@color/colorRed"
         android:layout_gravity="right"
-
         />
 <!--TODO: edit item view based on pages from https://wireframepro.mockflow.com/editor.jsp?editor=off&publicid=Maf3421dd7c220f381d152c3a6ab0f2a61528619684949&projectid=D263a2b33f2296f4b8a9ad5ec35d73baf&perm=Owner#/page/D84e5f6d44d1ea7b1b7c6e0f3bd9944de-->
 </LinearLayout>
