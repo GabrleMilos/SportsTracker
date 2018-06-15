@@ -5,6 +5,7 @@
     android:stretchColumns="1"
     android:layout_gravity="bottom"
     android:background="@color/colorBackground"
+    android:layout_marginBottom="60dp"
     >
 
     <TableRow>
