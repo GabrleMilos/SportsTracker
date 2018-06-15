@@ -21,8 +21,8 @@ import cz.uhk.fim.sportstracker.Models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperInterface, PositionHelperInterface, UserHelperInterface {
 
-    public DatabaseHelper(Context context){
-        super(context, "database",null,1);
+    public DatabaseHelper(Context context) {
+        super(context, "database", null, 1);
     }
 
 
@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(UserTable.TABLE_NAME, null, null, null, null, null, null);
         List<User> list = new ArrayList<>();
@@ -66,17 +66,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            list.add(new User(id,login2,password,weight,height,date,gender));
+            list.add(new User(id, login2, password, weight, height, date, gender));
         }
-        return  list;
+        return list;
     }
 
     @Override
     public Activity getActivity(int activityId) {
         SQLiteDatabase database = getReadableDatabase();
-        String [] projection = null;
+        String[] projection = null;
         String selection = ActivityTable.COLUMN_ID + " = ?";
-        String [] selectionArgs = new String[]{String.valueOf(activityId)};
+        String[] selectionArgs = new String[]{String.valueOf(activityId)};
 
         Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
         Activity a = new Activity();
@@ -108,9 +108,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         activityValues.put(ActivityTable.COLUMN_DATE, date);
         activityValues.put(ActivityTable.COLUMN_USER_ID, userId);
 
-        long id = database.insert(ActivityTable.TABLE_NAME,null,activityValues);
+        long id = database.insert(ActivityTable.TABLE_NAME, null, activityValues);
 
-        for (Position p: activity.getPositionList()) {
+        for (Position p : activity.getPositionList()) {
             insertPosition(p, id);
         }
 
@@ -124,7 +124,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
 
     @Override
     public boolean deleteActivity(int activityId) {
-        return false;
+        SQLiteDatabase database = getWritableDatabase();
+        String whereClause = ActivityTable.COLUMN_ID + " = ?";
+        String [] whereArgs = new String[]{String.valueOf(activityId)};
+        database.delete(ActivityTable.TABLE_NAME,whereClause, whereArgs);
+        return true;
     }
 
     @Override

@@ -16,4 +16,5 @@
     tools:context=".DetailActivity" />
 
     <include layout="@layout/activity_info"/>
+
 </FrameLayout>

@@ -24,7 +24,6 @@ import cz.uhk.fim.sportstracker.Database.DatabaseHelper;
 import cz.uhk.fim.sportstracker.Models.Activity;
 import cz.uhk.fim.sportstracker.Models.Position;
 import cz.uhk.fim.sportstracker.Models.User;
-import cz.uhk.fim.sportstracker.TestData.TestData;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.btnNewActivity)
     FloatingActionButton btnNewActivity;
+
 
     RecyclerView.LayoutManager layoutManager;
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //                insertTestData();
 //                readTestData();
         User u = databaseHelper.getUser("gabrlmi1");
-        activityAdapter = new ActivityAdapter(databaseHelper.getUserActivities(u.getId()));
+        activityAdapter = new ActivityAdapter(this,databaseHelper.getUserActivities(u.getId()));
         recyclerView.setAdapter(activityAdapter);
 
 

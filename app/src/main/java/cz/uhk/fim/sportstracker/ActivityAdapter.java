@@ -1,8 +1,10 @@
 package cz.uhk.fim.sportstracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +14,15 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import cz.uhk.fim.sportstracker.Database.DatabaseHelper;
 import cz.uhk.fim.sportstracker.Models.Activity;
 
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {
     private List<Activity> activities;
-
-    public ActivityAdapter(List<Activity> activities){
+    private DatabaseHelper databaseHelper;
+    public ActivityAdapter(Context context , List<Activity> activities){
         this.activities = activities;
+        databaseHelper = new DatabaseHelper(context);
     }
 
     @NonNull
@@ -26,7 +30,6 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_activity,null);
         ActivityViewHolder viewHolder = new ActivityViewHolder(itemView);
-
         return viewHolder;
     }
 
@@ -48,6 +51,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         private Button btnDelete;
         private Button btnDetail;
         private int id;
+        Activity activity;
 
 
         public ActivityViewHolder(final View itemView) {
@@ -56,10 +60,13 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
             txtDistance =  (TextView) itemView.findViewById(R.id.txtDistance);
             btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
             btnDetail = (Button) itemView.findViewById(R.id.btnDetail);
+
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: add delete function !!!
+                    databaseHelper.deleteActivity(id);
+                    activities.remove(activity);
+                    notifyDataSetChanged();
                 }
             });
 
@@ -75,9 +82,9 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
 
         public void setActivity(final Activity activity){
+            this.activity = activity;
             txtDate.setText(activity.getDateString());
-            DecimalFormat df = new DecimalFormat("####0.00");
-            txtDistance.setText(" " + df.format(activity.getTotalDistance()) + " km");
+            txtDistance.setText(" " + activity.getTotalDistanceString() + " km");
             id = activity.getId();
 
         }
