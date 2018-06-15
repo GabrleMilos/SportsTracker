@@ -76,12 +76,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         SQLiteDatabase database = getReadableDatabase();
         String [] projection = null;
         String selection = ActivityTable.COLUMN_ID + " = ?";
-        String [] selectionArgs = {String.valueOf(activityId)};
+        String [] selectionArgs = new String[]{String.valueOf(activityId)};
 
         Cursor cursor = database.query(ActivityTable.TABLE_NAME, projection, selection, selectionArgs, null, null, ActivityTable.COLUMN_DATE);
         Activity a = new Activity();
         if (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex((ActivityTable._ID)));
+            int id = cursor.getInt(cursor.getColumnIndex((ActivityTable.COLUMN_ID)));
             String dateString = cursor.getString(cursor.getColumnIndex((ActivityTable.COLUMN_DATE)));
             Date date = null;
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

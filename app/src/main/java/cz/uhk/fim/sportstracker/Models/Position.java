@@ -1,5 +1,7 @@
 package cz.uhk.fim.sportstracker.Models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Position {
@@ -48,6 +50,11 @@ public class Position {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDateString(){
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        return df.format(date);
     }
 
     public void setDate(Date date) {

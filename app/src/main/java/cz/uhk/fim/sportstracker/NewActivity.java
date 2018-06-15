@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import cz.uhk.fim.sportstracker.Models.Position;
 
 public class NewActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -37,6 +38,7 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
         positions = new ArrayList<Position>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
+        ButterKnife.bind(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

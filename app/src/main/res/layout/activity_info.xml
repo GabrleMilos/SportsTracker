@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1"
+    android:layout_gravity="bottom"
+    android:background="@color/colorBackground"
+    >
+
+    <TableRow>
+
+        <TextView
+            android:padding="@dimen/activity_vertical_margin"
+            android:id="@+id/txtTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtTime"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="0:00"
+            android:textSize="@dimen/activity_info_value" />
+    </TableRow>
+
+    <TableRow>
+
+
+        <TextView
+            android:id="@+id/txtDistanceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="@string/txtDistanceLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtDistanceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="0 km"
+            android:textSize="@dimen/activity_info_value" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/txtPaceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="@string/txtPaceLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtPaceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="0 min/km"
+            android:textSize="@dimen/activity_info_value" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/txtDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="@string/txtDateLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtDateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="dd-MM-yyyy"
+            android:textSize="@dimen/activity_info_value" />
+    </TableRow>
+
+
+</TableLayout>

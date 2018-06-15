@@ -20,4 +20,9 @@
     <string name="txtTime">Time</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_detail">Map</string>
+    <string name="markerStart">Start</string>
+    <string name="markerEnd">End</string>
+    <string name="txtDistanceLabel">Distance</string>
+    <string name="txtPaceLabel">Pace</string>
+    <string name="txtDateLabel">Date</string>
 </resources>

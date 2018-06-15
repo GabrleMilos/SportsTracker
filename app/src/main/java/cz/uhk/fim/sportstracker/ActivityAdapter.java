@@ -6,11 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -80,7 +77,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         public void setActivity(final Activity activity){
             txtDate.setText(activity.getDateString());
             DecimalFormat df = new DecimalFormat("####0.00");
-            txtDistance.setText(" " + df.format(activity.getDistance()) + " km");
+            txtDistance.setText(" " + df.format(activity.getTotalDistance()) + " km");
             id = activity.getId();
 
         }
