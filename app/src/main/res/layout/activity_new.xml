@@ -2,13 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/colorBackground">
 
     <include layout="@layout/activity_map"/>
     <include layout="@layout/activity_info"/>
 
     <Button
-        android:background="@color/colorGreen"
+        android:textColor="@color/colorGreen"
+        android:background="@color/colorBlack"
         android:id="@+id/btnStartActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +19,8 @@
         android:text="@string/btnStartActivity" />
 
     <Button
-        android:background="@color/colorRed"
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorRed"
         android:id="@+id/btnStopActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

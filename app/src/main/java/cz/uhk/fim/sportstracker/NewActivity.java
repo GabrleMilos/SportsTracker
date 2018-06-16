@@ -10,6 +10,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,10 +21,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.uhk.fim.sportstracker.Models.Position;
 
@@ -32,6 +38,18 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
     private LocationManager locationManager;
     private LocationListener locationListener;
 
+    @BindView(R.id.btnStartActivity)
+    public Button btnStart;
+    @BindView(R.id.btnStopActivity)
+    public Button btnStop;
+    @BindView(R.id.txtTimeValue)
+    public TextView txtTimeValue;
+    @BindView(R.id.txtDistanceValue)
+    public TextView txtDistanceValue;
+    @BindView(R.id.txtPaceValue)
+    public TextView txtPaceValue;
+    @BindView(R.id.txtDateValue)
+    public TextView txtDateValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +63,12 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
 
 
-        Log.e("method", "onCreate");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 LatLng myCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
                 Position p = new Position(myCoordinates.latitude, myCoordinates.longitude, new Date());
                 positions.add(p);
-                mMap.addMarker(new MarkerOptions().position(myCoordinates).title("pos"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(myCoordinates));
                 Log.e("POSITION", "Pos changed");
             }
@@ -76,7 +92,28 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+
+
+        Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Log.i("LOCATION", "insideCode");
+        txtTimeValue.setText(String.valueOf( loc.getLatitude()) + " " + String.valueOf( loc.getLongitude()));
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 
