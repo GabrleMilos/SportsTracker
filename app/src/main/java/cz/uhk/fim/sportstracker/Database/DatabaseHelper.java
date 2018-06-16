@@ -268,4 +268,28 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
 
         return activityList;
     }
+
+    @Override
+    public boolean loginUser(String login, String password) {
+        SQLiteDatabase database = getReadableDatabase();
+        String [] projection = null;
+        String selection = UserTable.COLUMN_LOGIN + " = ? AND " + UserTable.COLUMN_PASSWORD + " = ?";
+        String [] selectionArgs = new String[]{login, password};
+        Cursor cursor = database.query(UserTable.TABLE_NAME, projection,selection,selectionArgs,null,null   ,null);
+        if (cursor.moveToNext())
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean userExists(String login) {
+        SQLiteDatabase database = getReadableDatabase();
+        String [] projection = null;
+        String selection = UserTable.COLUMN_LOGIN + " = ?";
+        String [] selectionArgs = new String[]{login};
+        Cursor cursor = database.query(UserTable.TABLE_NAME, projection,selection,selectionArgs,null,null   ,null);
+        if (cursor.moveToNext())
+            return true;
+        return false;
+    }
 }

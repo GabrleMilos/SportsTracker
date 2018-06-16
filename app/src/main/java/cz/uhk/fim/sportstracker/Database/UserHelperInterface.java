@@ -10,4 +10,6 @@ public interface UserHelperInterface {
     User getUser(String login);
     boolean insertUser(User user);
     List<Activity> getUserActivities (int userId);
+    boolean loginUser(String login, String password);
+    boolean userExists(String login);
 }
