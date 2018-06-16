@@ -288,8 +288,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
         String selection = UserTable.COLUMN_LOGIN + " = ?";
         String [] selectionArgs = new String[]{login};
         Cursor cursor = database.query(UserTable.TABLE_NAME, projection,selection,selectionArgs,null,null   ,null);
-        if (cursor.moveToNext())
+        if (cursor.moveToNext()){
+            String login2 = cursor.getString(cursor.getColumnIndex((UserTable.COLUMN_LOGIN)));
+            String asd = "asd";
             return true;
+        }
         return false;
     }
 }

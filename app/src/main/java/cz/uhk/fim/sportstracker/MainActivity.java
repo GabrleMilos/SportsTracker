@@ -29,14 +29,15 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @BindView(R.id.recyclerMain)
-    RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     @BindView(R.id.btnNewActivity)
-    FloatingActionButton btnNewActivity;
+    public FloatingActionButton btnNewActivity;
 
 
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
+    private ActivityAdapter activityAdapter;
 
-    ActivityAdapter activityAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 //                insertTestData();
-//                readTestData();
-        User u = databaseHelper.getUser("gabrlmi1");
+
+        Intent intent = getIntent();
+        String login = intent.getStringExtra("login");
+
+        User u = databaseHelper.getUser(login);
         activityAdapter = new ActivityAdapter(this,databaseHelper.getUserActivities(u.getId()));
         recyclerView.setAdapter(activityAdapter);
 
@@ -64,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(intent, 10);
                     }
                 });
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivityForResult(intent, 10);
     }
 
 

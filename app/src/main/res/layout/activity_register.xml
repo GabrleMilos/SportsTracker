@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegisterActivity">
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--LOGIN-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+            <!--PASSWORD-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+            <!--PASSWORD AGAIN-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtPasswordAgain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password_again"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--BIRTHDATE-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtBirthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_date"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--WEIGHT-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/prompt_weight" />
+
+                <SeekBar
+                    android:id="@+id/skbrWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="150"
+                    android:min="40"
+                    android:progress="60" />
+
+                <TextView
+                    android:id="@+id/txtWeightValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textAlignment="center" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--HEIGHT-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_height"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/prompt_height" />
+
+                <SeekBar
+                    android:id="@+id/skbrHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="240"
+                    android:min="100"
+                    android:progress="150"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/txtHeightValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="40"
+                    android:textAlignment="center" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--GENDER-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_height"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/prompt_gender" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radioGenderMale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/genderMale" />
+
+                    <RadioButton
+                        android:id="@+id/radioGenderFemale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/genderFemale" />
+                </RadioGroup>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_register_and_sign_in"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
