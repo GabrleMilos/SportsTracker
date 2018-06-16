@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-                insertTestData();
+//                insertTestData();
 //                readTestData();
         User u = databaseHelper.getUser("gabrlmi1");
         activityAdapter = new ActivityAdapter(this,databaseHelper.getUserActivities(u.getId()));
@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(intent, 10);
                     }
                 });
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivityForResult(intent, 10);
     }
 
 

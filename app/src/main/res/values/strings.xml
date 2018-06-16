@@ -25,4 +25,5 @@
     <string name="txtDistanceLabel">Distance</string>
     <string name="txtPaceLabel">Pace</string>
     <string name="txtDateLabel">Date</string>
+    <string name="title_activity_login">Sign in</string>
 </resources>
