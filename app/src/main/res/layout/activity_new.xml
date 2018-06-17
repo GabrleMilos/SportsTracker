@@ -9,8 +9,7 @@
     <include layout="@layout/activity_info"/>
 
     <Button
-        android:textColor="@color/colorGreen"
-        android:background="@color/colorBlack"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/btnStartActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,8 +18,18 @@
         android:text="@string/btnStartActivity" />
 
     <Button
-        android:background="@color/colorBlack"
-        android:textColor="@color/colorRed"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:visibility="invisible"
+        android:id="@+id/btnSaveActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="5dp"
+        android:text="@string/btnSaveActivity" />
+
+    <Button
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:visibility="invisible"
         android:id="@+id/btnStopActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -27,6 +27,7 @@ import cz.uhk.fim.sportstracker.Models.User;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
+    private String login;
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @BindView(R.id.recyclerMain)
     public RecyclerView recyclerView;
@@ -37,7 +38,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ActivityAdapter activityAdapter;
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10 && resultCode == RESULT_OK){
+            final User u = databaseHelper.getUser(login);
+            int activityId = (int) data.getLongExtra("activityId", 0);
+            activityAdapter.addActivity(databaseHelper.getActivity(activityId));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
 //                insertTestData();
 
         Intent intent = getIntent();
-        String login = intent.getStringExtra("login");
+        login = intent.getStringExtra("login");
 
-        User u = databaseHelper.getUser(login);
+        final User u = databaseHelper.getUser(login);
         activityAdapter = new ActivityAdapter(this,databaseHelper.getUserActivities(u.getId()));
         recyclerView.setAdapter(activityAdapter);
 
@@ -65,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(MainActivity.this, NewActivity.class);
+                        intent.putExtra("userId", u.getId());
                         startActivityForResult(intent, 10);
                     }
                 });
@@ -109,12 +119,12 @@ public class MainActivity extends AppCompatActivity {
             Log.i("User", "inserted");
         }
         ;
-        if (databaseHelper.insertActivity(a1, 1)) {
+        if (databaseHelper.insertActivity(a1, 1) > 0) {
             Log.i("Activity1", "inserted");
         }
         ;
 
-        if (databaseHelper.insertActivity(a2, 1)) {
+        if (databaseHelper.insertActivity(a2, 1) > 0) {
             Log.i("Activity2", "inserted");
         }
         ;

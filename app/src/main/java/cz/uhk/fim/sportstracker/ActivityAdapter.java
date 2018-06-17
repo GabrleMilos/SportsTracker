@@ -20,6 +20,12 @@ import cz.uhk.fim.sportstracker.Models.Activity;
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {
     private List<Activity> activities;
     private DatabaseHelper databaseHelper;
+
+    public void addActivity(Activity activity){
+        activities.add(activity);
+        notifyDataSetChanged();
+    }
+
     public ActivityAdapter(Context context , List<Activity> activities){
         this.activities = activities;
         databaseHelper = new DatabaseHelper(context);

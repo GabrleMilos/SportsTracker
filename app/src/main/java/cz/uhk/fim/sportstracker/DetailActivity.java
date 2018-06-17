@@ -103,7 +103,7 @@ public class DetailActivity extends FragmentActivity implements OnMapReadyCallba
             }
             mMap.addPolyline(new PolylineOptions()
                     .add(new LatLng(start.getLat(), start.getLng()), new LatLng(end.getLat(), end.getLng()))
-                    .width(5)
+                    .width(10)
                     .color(color)
             );
             latLng = new LatLng(end.getLat(), end.getLng());

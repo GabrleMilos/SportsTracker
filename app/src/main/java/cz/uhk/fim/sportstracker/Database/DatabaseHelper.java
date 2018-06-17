@@ -99,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
     }
 
     @Override
-    public boolean insertActivity(Activity activity, int userId) {
+    public long insertActivity(Activity activity, int userId) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues activityValues = new ContentValues();
 
@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements ActivityHelperIn
             insertPosition(p, id);
         }
 
-        return id > 0;
+        return id;
     }
 
     @Override

@@ -38,4 +38,5 @@
     <string name="genderFemale">Female</string>
     <string name="prompt_gender">Gender</string>
     <string name="error_passwords_do_not_match">Passwords do not match</string>
+    <string name="btnSaveActivity">Save</string>
 </resources>
