@@ -1,36 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/linLayoutItem"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        />
-    <TextView
-        android:id="@+id/txtDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        />
 
-    <Button
-        android:id="@+id/btnDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/MainAtcitivity_btnDetail"
-        android:layout_gravity="right"
-        />
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/MainAtcitivity_btnDelete"
-        android:textColor="@color/colorRed"
-        android:layout_gravity="right"
-        />
-<!--TODO: edit item view based on pages from https://wireframepro.mockflow.com/editor.jsp?editor=off&publicid=Maf3421dd7c220f381d152c3a6ab0f2a61528619684949&projectid=D263a2b33f2296f4b8a9ad5ec35d73baf&perm=Owner#/page/D84e5f6d44d1ea7b1b7c6e0f3bd9944de-->
-</LinearLayout>
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linLayoutItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:columnCount="3">
+
+        <TextView
+            android:id="@+id/txtDateLabel"
+            android:layout_width="@dimen/main_activity_info_label"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="left"
+            android:layout_row="0"
+            android:text="@string/txtDateLabel" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="@dimen/main_activity_info_value"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left"
+            android:layout_row="0"
+            android:text="@string/txtDateLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtDistanceLabel"
+            android:layout_width="@dimen/main_activity_info_label"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="left"
+            android:layout_row="1"
+            android:text="@string/txtDistanceLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtDistance"
+            android:layout_width="@dimen/main_activity_info_value"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left"
+            android:layout_row="1"
+            android:text="@string/txtDistanceLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtPaceLabel"
+            android:layout_width="@dimen/main_activity_info_label"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="left"
+            android:layout_row="2"
+            android:text="@string/txtPaceLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <TextView
+            android:id="@+id/txtPace"
+            android:layout_width="@dimen/main_activity_info_value"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left"
+            android:layout_row="2"
+            android:text="@string/txtPaceLabel"
+            android:textSize="@dimen/activity_info_label" />
+
+        <Button
+            android:id="@+id/btnDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="right"
+            android:layout_row="0"
+            android:text="@string/MainAtcitivity_btnDetail" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="right"
+            android:layout_row="1"
+            android:text="@string/MainAtcitivity_btnDelete"
+            android:textColor="@color/colorRed" />
+    </GridLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
+</RelativeLayout>

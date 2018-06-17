@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_info_label">15sp</dimen>
     <dimen name="activity_info_value">25sp</dimen>
+    <dimen name="item_label_width">30dp</dimen>
+    <dimen name="main_activity_info_label">100dp</dimen>
+    <dimen name="main_activity_info_value">200dp</dimen>
 </resources>

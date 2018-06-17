@@ -54,6 +54,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public class ActivityViewHolder extends RecyclerView.ViewHolder{
         private TextView txtDate;
         private TextView txtDistance;
+        private TextView txtPace;
         private Button btnDelete;
         private Button btnDetail;
         private int id;
@@ -64,6 +65,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
             super(itemView);
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtDistance =  (TextView) itemView.findViewById(R.id.txtDistance);
+            txtPace =  (TextView) itemView.findViewById(R.id.txtPace);
             btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
             btnDetail = (Button) itemView.findViewById(R.id.btnDetail);
 
@@ -90,7 +92,8 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         public void setActivity(final Activity activity){
             this.activity = activity;
             txtDate.setText(activity.getDateString());
-            txtDistance.setText(" " + activity.getTotalDistanceString() + " km");
+            txtDistance.setText(activity.getTotalDistanceString() + " km");
+            txtPace.setText(activity.getTotalPaceInMinutesString() + " min/km");
             id = activity.getId();
 
         }
