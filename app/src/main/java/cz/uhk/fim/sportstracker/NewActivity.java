@@ -3,11 +3,10 @@ package cz.uhk.fim.sportstracker;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.provider.ContactsContract;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -21,14 +20,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import org.w3c.dom.Text;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,14 +36,19 @@ import cz.uhk.fim.sportstracker.Models.Position;
 
 public class NewActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private int userId;
     private GoogleMap mMap;
+    private TextToSpeech mTTS;
     private Activity activity;
     private List<Position> positions;
     private LocationManager locationManager;
     private LocationListener locationListener;
     private boolean isActive;
     private DatabaseHelper databaseHelper;
+    //    overall data
+    private double averagePace;
+    private double averageDistance;
+
+    private int userId;
 
     @BindView(R.id.btnStartActivity)
     public Button btnStart;
@@ -67,6 +70,24 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i == TextToSpeech.SUCCESS){
+                    int result = mTTS.setLanguage(Locale.ENGLISH);
+                    mTTS.setPitch(1);
+                    mTTS.setSpeechRate(1);
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }else{
+                        Log.i("TTS", "Initialization successfull");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization failed");
+                }
+            }
+        });
+
         positions = new ArrayList<Position>();
         activity = new Activity(positions, new Date());
         super.onCreate(savedInstanceState);
@@ -76,6 +97,17 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
         isActive = false;
         Intent intent = getIntent();
         userId = intent.getIntExtra("userId", 0);
+        List<Activity> activities = databaseHelper.getUserActivities(userId);
+        if(!activities.isEmpty()){
+            double sumPace = 0;
+            double sumDistance = 0;
+            for (Activity a: activities) {
+                sumDistance += a.getTotalDistance();
+                sumPace += a.getTotalPaceInMinutes();
+            }
+            averagePace = sumPace/ activities.size();
+            averageDistance = sumDistance / activities.size();
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -84,6 +116,13 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
 
     }
 
+    public void speakTheTextQueueAdd(String str){
+        mTTS.speak(str, TextToSpeech.QUEUE_ADD, null);
+    }
+
+    public void speakTheTextQueueFlush(String str){
+        mTTS.speak(str, TextToSpeech.QUEUE_FLUSH, null);
+    }
 
     /**
      * Manipulates the map once available.
@@ -102,6 +141,7 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                speakTheTextQueueFlush("starting activity");
                 isActive = true;
                 btnSave.setVisibility(View.INVISIBLE);
                 btnStop.setVisibility(View.VISIBLE);
@@ -157,7 +197,10 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
                     txtDistanceValue.setText(activity.getTotalDistanceString() + " km");
                     txtPaceValue.setText(activity.getTotalPaceInMinutesString() + " min/km");
                     txtTimeValue.setText(activity.getTotalTimeString());
-
+                    double dst = activity.getTotalDistance();
+                    if(dst % 1 <=  0.3 && dst > 0){
+                        readAcivityFeedback();
+                    }
                 }
             }
 
@@ -176,6 +219,32 @@ public class NewActivity extends FragmentActivity implements OnMapReadyCallback 
         }
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 500, 10, locationListener);
+    }
+
+    private void readAcivityFeedback() {
+        DecimalFormat df2 = new DecimalFormat(".##");
+        String distanceText = "";
+        if(activity.getTotalDistance() < averageDistance){
+            distanceText = "You have " + df2.format(averageDistance - activity.getTotalDistance()) + " kilometers left to achieve your average distance" ;
+        }
+        else  if(activity.getTotalDistance() > averageDistance) {
+            distanceText =    "You have reached your average distance " + df2.format(activity.getTotalDistance() - averageDistance) + " kilometers ago" ;
+        } else  {
+            distanceText =    "You have reached your average distance, which is " + df2.format(averageDistance )+ " kilometers" ;
+        }
+        speakTheTextQueueAdd(distanceText);
+
+
+        String paceText = "";
+        if(activity.getTotalPaceInMinutes() < averagePace){
+            paceText = "Your current pace is " + df2.format(averagePace - activity.getTotalPaceInMinutes()) + " minutes per kilometer faster than your average pace";
+        }else if (activity.getTotalPaceInMinutes() > averagePace){
+            paceText = "Your current pace is " + df2.format(activity.getTotalPaceInMinutes() - averagePace) + " minutes per kilometer slower than your average pace";
+        }else{
+            paceText = "Your current pace is the same as your average pace, which is " + df2.format(averagePace )+ " minutes per kilometer" ;
+        }
+        speakTheTextQueueAdd(paceText);
+
     }
 
 }
